@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is stored in localStorage
     const storedUser = localStorage.getItem("user")
     if (storedUser) {
       setUser(JSON.parse(storedUser))
@@ -20,16 +19,12 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = (userData) => {
-    // In a real app, you would validate credentials with an API
-    // For demo purposes, we'll just set the user directly
     setUser(userData)
     localStorage.setItem("user", JSON.stringify(userData))
     return true
   }
 
   const register = (userData) => {
-    // In a real app, you would send registration data to an API
-    // For demo purposes, we'll just set the user directly
     const newUser = { ...userData, role: "user" }
     setUser(newUser)
     localStorage.setItem("user", JSON.stringify(newUser))
@@ -49,6 +44,27 @@ export const AuthProvider = ({ children }) => {
     logout,
   }
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={value}>
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            backgroundColor: "#F5F7F7",
+            color: "#285D66",
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+          }}
+        >
+          Loading...
+        </div>
+      ) : (
+        children
+      )}
+    </AuthContext.Provider>
+  )
 }
 

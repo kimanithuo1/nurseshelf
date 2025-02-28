@@ -6,12 +6,7 @@ import { Clock, Users, Star, BookOpen, CheckCircle, Play, Download, Award } from
 const CourseDetails = () => {
   const { courseId } = useParams()
 
-
-  
-  // Mock data - in a real app, you would fetch this based on courseId
-
-
-
+  // Mock data (unchanged)
   const course = {
     id: Number.parseInt(courseId),
     title: "Fundamentals of Nursing",
@@ -66,71 +61,108 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="relative mb-8">
+    <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "2rem 1rem", backgroundColor: "#F5F7F7" }}>
+      <div style={{ position: "relative", marginBottom: "2rem" }}>
         <img
           src={course.image || "/placeholder.svg"}
           alt={course.title}
-          className="w-full h-64 object-cover rounded-lg"
+          style={{
+            width: "100%",
+            height: "20rem",
+            objectFit: "cover",
+            borderRadius: "0.5rem",
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-lg"></div>
-        <div className="absolute bottom-0 left-0 p-6 text-white">
-          <div className="flex items-center mb-2">
-            <span className="bg-teal px-3 py-1 rounded-full text-xs font-medium mr-2">{course.category}</span>
-            <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-medium">{course.level}</span>
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
+            borderRadius: "0.5rem",
+          }}
+        ></div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            padding: "2rem",
+            color: "white",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
+            <span
+              style={{
+                backgroundColor: "#285D66",
+                color: "white",
+                padding: "0.25rem 0.75rem",
+                borderRadius: "9999px",
+                fontSize: "0.875rem",
+                fontWeight: "600",
+                marginRight: "0.5rem",
+              }}
+            >
+              {course.category}
+            </span>
+            <span
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                color: "white",
+                padding: "0.25rem 0.75rem",
+                borderRadius: "9999px",
+                fontSize: "0.875rem",
+                fontWeight: "600",
+              }}
+            >
+              {course.level}
+            </span>
           </div>
-          <h1 className="text-3xl font-bold mb-2 text-white">{course.title}</h1>
-          <div className="flex items-center text-sm">
-            <div className="flex items-center mr-4">
-              <Clock size={16} className="mr-1" />
-              <span>{course.duration}</span>
-            </div>
-            <div className="flex items-center mr-4">
-              <Users size={16} className="mr-1" />
-              <span>{course.students} students</span>
-            </div>
-            <div className="flex items-center">
-              <Star size={16} className="mr-1 text-yellow-400" />
-              <span>{course.rating}</span>
-            </div>
+          <h1 style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "1rem" }}>{course.title}</h1>
+          <div style={{ display: "flex", alignItems: "center", fontSize: "1rem" }}>
+            <CourseMetaItem icon={<Clock size={18} />} text={course.duration} />
+            <CourseMetaItem icon={<Users size={18} />} text={`${course.students} students`} />
+            <CourseMetaItem icon={<Star size={18} style={{ color: "#E1DF66" }} />} text={course.rating.toString()} />
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <div className="card mb-8">
-            <h2 className="text-xl font-semibold mb-4">About This Course</h2>
-            <p className="text-gray-700 mb-6">{course.description}</p>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "2rem" }}>
+        <div>
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "0.5rem",
+              padding: "2rem",
+              marginBottom: "2rem",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "1rem", color: "#285D66" }}>
+              About This Course
+            </h2>
+            <p style={{ color: "#666666", marginBottom: "1.5rem" }}>{course.description}</p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="flex flex-col items-center p-3 bg-light/50 rounded-lg">
-                <BookOpen size={24} className="text-teal mb-2" />
-                <span className="text-sm text-gray-600">Lessons</span>
-                <span className="font-semibold">{course.lessons}</span>
-              </div>
-              <div className="flex flex-col items-center p-3 bg-light/50 rounded-lg">
-                <Clock size={24} className="text-teal mb-2" />
-                <span className="text-sm text-gray-600">Duration</span>
-                <span className="font-semibold">{course.duration}</span>
-              </div>
-              <div className="flex flex-col items-center p-3 bg-light/50 rounded-lg">
-                <Users size={24} className="text-teal mb-2" />
-                <span className="text-sm text-gray-600">Students</span>
-                <span className="font-semibold">{course.students}</span>
-              </div>
-              <div className="flex flex-col items-center p-3 bg-light/50 rounded-lg">
-                <Star size={24} className="text-teal mb-2" />
-                <span className="text-sm text-gray-600">Rating</span>
-                <span className="font-semibold">{course.rating}</span>
-              </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+              <CourseInfoItem icon={<BookOpen size={24} />} label="Lessons" value={course.lessons} />
+              <CourseInfoItem icon={<Clock size={24} />} label="Duration" value={course.duration} />
+              <CourseInfoItem icon={<Users size={24} />} label="Students" value={course.students} />
+              <CourseInfoItem icon={<Star size={24} />} label="Rating" value={course.rating} />
             </div>
           </div>
 
-          <div className="card mb-8">
-            <h2 className="text-xl font-semibold mb-4">Course Content</h2>
-            <div className="mb-4">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "0.5rem",
+              padding: "2rem",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "1rem", color: "#285D66" }}>
+              Course Content
+            </h2>
+            <div style={{ marginBottom: "1rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", color: "#666666" }}>
                 <span>
                   {course.modules.length} modules • {course.lessons} lessons
                 </span>
@@ -138,25 +170,45 @@ const CourseDetails = () => {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {course.modules.map((module) => (
-                <div key={module.id} className="border border-light rounded-lg overflow-hidden">
-                  <div className="flex justify-between items-center p-4 bg-light/30">
-                    <h3 className="font-medium">{module.title}</h3>
-                    <span className="text-sm text-gray-600">{module.lessons.length} lessons</span>
+                <div
+                  key={module.id}
+                  style={{ border: "1px solid #B7DBC8", borderRadius: "0.5rem", overflow: "hidden" }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "1rem",
+                      backgroundColor: "#F5F7F7",
+                    }}
+                  >
+                    <h3 style={{ fontWeight: "600", color: "#285D66" }}>{module.title}</h3>
+                    <span style={{ fontSize: "0.875rem", color: "#666666" }}>{module.lessons.length} lessons</span>
                   </div>
-                  <div className="divide-y divide-light">
+                  <div>
                     {module.lessons.map((lesson) => (
-                      <div key={lesson.id} className="flex items-center justify-between p-4">
-                        <div className="flex items-center">
+                      <div
+                        key={lesson.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          padding: "1rem",
+                          borderTop: "1px solid #B7DBC8",
+                        }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center" }}>
                           {lesson.isCompleted ? (
-                            <CheckCircle size={18} className="text-teal mr-3" />
+                            <CheckCircle size={18} style={{ color: "#285D66", marginRight: "0.75rem" }} />
                           ) : (
-                            <Play size={18} className="text-gray-400 mr-3" />
+                            <Play size={18} style={{ color: "#666666", marginRight: "0.75rem" }} />
                           )}
-                          <span className={lesson.isCompleted ? "text-gray-500" : ""}>{lesson.title}</span>
+                          <span style={{ color: lesson.isCompleted ? "#666666" : "#333333" }}>{lesson.title}</span>
                         </div>
-                        <span className="text-sm text-gray-600">{lesson.duration}</span>
+                        <span style={{ fontSize: "0.875rem", color: "#666666" }}>{lesson.duration}</span>
                       </div>
                     ))}
                   </div>
@@ -167,55 +219,66 @@ const CourseDetails = () => {
         </div>
 
         <div>
-          <div className="card sticky top-6">
-            <div className="flex justify-center mb-6">
-              <button className="btn-primary w-full flex items-center justify-center">
-                <Play size={18} className="mr-2" />
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "0.5rem",
+              padding: "2rem",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              position: "sticky",
+              top: "2rem",
+            }}
+          >
+            <div style={{ marginBottom: "1.5rem" }}>
+              <button
+                style={{
+                  width: "100%",
+                  padding: "0.75rem 1rem",
+                  backgroundColor: "#285D66",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "0.375rem",
+                  fontSize: "1rem",
+                  fontWeight: "600",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <Play size={20} style={{ marginRight: "0.5rem" }} />
                 Start Learning
               </button>
             </div>
 
-            <div className="space-y-4 mb-6">
-              <button className="w-full flex items-center justify-between p-3 border border-light rounded-lg hover:bg-light/30">
-                <span className="font-medium">Download Resources</span>
-                <Download size={18} />
-              </button>
-              <button className="w-full flex items-center justify-between p-3 border border-light rounded-lg hover:bg-light/30">
-                <span className="font-medium">Course Certificate</span>
-                <Award size={18} />
-              </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "1.5rem" }}>
+              <SidebarButton icon={<Download size={18} />} text="Download Resources" />
+              <SidebarButton icon={<Award size={18} />} text="Course Certificate" />
             </div>
 
-            <div className="border-t border-light pt-6">
-              <h3 className="text-lg font-semibold mb-4">Instructor</h3>
-              <div className="flex items-center mb-4">
+            <div style={{ borderTop: "1px solid #B7DBC8", paddingTop: "1.5rem" }}>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem", color: "#285D66" }}>
+                Instructor
+              </h3>
+              <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
                 <img
                   src={course.instructor.avatar || "/placeholder.svg"}
                   alt={course.instructor.name}
-                  className="w-12 h-12 rounded-full mr-3"
+                  style={{ width: "3rem", height: "3rem", borderRadius: "9999px", marginRight: "1rem" }}
                 />
                 <div>
-                  <h4 className="font-medium">{course.instructor.name}</h4>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Star size={14} className="text-yellow-400 mr-1" />
+                  <h4 style={{ fontWeight: "600", color: "#333333" }}>{course.instructor.name}</h4>
+                  <div style={{ display: "flex", alignItems: "center", fontSize: "0.875rem", color: "#666666" }}>
+                    <Star size={14} style={{ color: "#E1DF66", marginRight: "0.25rem" }} />
                     <span>{course.instructor.rating}</span>
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-gray-700 mb-4">{course.instructor.bio}</p>
-              <div className="flex justify-between text-sm">
-                <div>
-                  <div className="font-medium">{course.instructor.courses}</div>
-                  <div className="text-gray-600">Courses</div>
-                </div>
-                <div>
-                  <div className="font-medium">{course.instructor.students}</div>
-                  <div className="text-gray-600">Students</div>
-                </div>
-                <div>
-                  <div className="font-medium">{course.instructor.rating}</div>
-                  <div className="text-gray-600">Rating</div>
-                </div>
+              <p style={{ fontSize: "0.875rem", color: "#666666", marginBottom: "1rem" }}>{course.instructor.bio}</p>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem" }}>
+                <InstructorStat label="Courses" value={course.instructor.courses} />
+                <InstructorStat label="Students" value={course.instructor.students} />
+                <InstructorStat label="Rating" value={course.instructor.rating} />
               </div>
             </div>
           </div>
@@ -224,6 +287,59 @@ const CourseDetails = () => {
     </div>
   )
 }
+
+const CourseMetaItem = ({ icon, text }) => (
+  <div style={{ display: "flex", alignItems: "center", marginRight: "1.5rem" }}>
+    {icon}
+    <span style={{ marginLeft: "0.5rem" }}>{text}</span>
+  </div>
+)
+
+const CourseInfoItem = ({ icon, label, value }) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: "1rem",
+      backgroundColor: "#F5F7F7",
+      borderRadius: "0.375rem",
+    }}
+  >
+    <div style={{ color: "#285D66", marginBottom: "0.5rem" }}>{icon}</div>
+    <span style={{ fontSize: "0.875rem", color: "#666666", marginBottom: "0.25rem" }}>{label}</span>
+    <span style={{ fontWeight: "600", color: "#333333" }}>{value}</span>
+  </div>
+)
+
+const SidebarButton = ({ icon, text }) => (
+  <button
+    style={{
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "0.75rem 1rem",
+      backgroundColor: "#F5F7F7",
+      border: "1px solid #B7DBC8",
+      borderRadius: "0.375rem",
+      fontSize: "0.875rem",
+      fontWeight: "500",
+      color: "#333333",
+      cursor: "pointer",
+    }}
+  >
+    <span>{text}</span>
+    {icon}
+  </button>
+)
+
+const InstructorStat = ({ label, value }) => (
+  <div style={{ textAlign: "center" }}>
+    <div style={{ fontWeight: "600", color: "#333333" }}>{value}</div>
+    <div style={{ color: "#666666" }}>{label}</div>
+  </div>
+)
 
 export default CourseDetails
 

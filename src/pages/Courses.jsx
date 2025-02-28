@@ -8,7 +8,7 @@ import { Search, Clock, Users, Star } from "lucide-react"
 const Courses = () => {
   const [activeFilter, setActiveFilter] = useState("all")
 
-  // Mock data
+  // Mock data (unchanged)
   const featuredCourse = {
     id: 0,
     title: "Comprehensive Nursing Fundamentals",
@@ -125,14 +125,14 @@ const Courses = () => {
     activeFilter === "all" ? courses : courses.filter((course) => course.category === activeFilter)
 
   return (
-    <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "2rem 1rem" }}>
-      <h1 style={{ fontSize: "1.875rem", fontWeight: "bold", color: "#285D66", marginBottom: "2rem" }}>
+    <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "2rem 1rem", backgroundColor: "#F5F7F7" }}>
+      <h1 style={{ fontSize: "2.25rem", fontWeight: "bold", color: "#285D66", marginBottom: "2rem" }}>
         Explore Our Courses
       </h1>
 
       {/* Featured Course */}
       <div style={{ marginBottom: "3rem" }}>
-        <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "1rem", color: "#285D66" }}>
+        <h2 style={{ fontSize: "1.75rem", fontWeight: "600", marginBottom: "1rem", color: "#285D66" }}>
           Featured Course
         </h2>
         <div
@@ -144,10 +144,18 @@ const Courses = () => {
             border: "1px solid #B7DBC8",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", md: { flexDirection: "row" } }}>
-            <div style={{ flexShrink: 0, height: "12rem", width: "100%", md: { width: "12rem", height: "auto" } }}>
+          <div
+            style={{ display: "flex", flexDirection: "column", "@media (min-width: 768px)": { flexDirection: "row" } }}
+          >
+            <div
+              style={{
+                flexShrink: 0,
+                height: "12rem",
+                width: "100%",
+                "@media (min-width: 768px)": { width: "12rem", height: "auto" },
+              }}
+            >
               <img
-                className="h-48 w-full object-cover md:w-48"
                 src={featuredCourse.image || "/placeholder.svg"}
                 alt={featuredCourse.title}
                 style={{ height: "100%", width: "100%", objectFit: "cover" }}
@@ -171,7 +179,7 @@ const Courses = () => {
                 style={{
                   display: "block",
                   marginTop: "0.25rem",
-                  fontSize: "1.25rem",
+                  fontSize: "1.5rem",
                   lineHeight: "1.25",
                   fontWeight: "500",
                   color: "#333333",
@@ -182,45 +190,23 @@ const Courses = () => {
               </Link>
               <p style={{ marginTop: "0.5rem", color: "#666666" }}>{featuredCourse.description}</p>
               <div style={{ marginTop: "1rem", display: "flex", alignItems: "center" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "0.875rem",
-                    color: "#666666",
-                    marginRight: "1.5rem",
-                  }}
-                >
-                  <Clock size={16} style={{ marginRight: "0.25rem" }} />
-                  <span>{featuredCourse.duration}</span>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "0.875rem",
-                    color: "#666666",
-                    marginRight: "1.5rem",
-                  }}
-                >
-                  <Users size={16} style={{ marginRight: "0.25rem" }} />
-                  <span>{featuredCourse.students} students</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", fontSize: "0.875rem", color: "#666666" }}>
-                  <Star size={16} style={{ marginRight: "0.25rem", color: "#E1DF66" }} />
-                  <span>{featuredCourse.rating}</span>
-                </div>
+                <CourseMetaItem icon={<Clock size={16} />} text={featuredCourse.duration} />
+                <CourseMetaItem icon={<Users size={16} />} text={`${featuredCourse.students} students`} />
+                <CourseMetaItem
+                  icon={<Star size={16} style={{ color: "#E1DF66" }} />}
+                  text={featuredCourse.rating.toString()}
+                />
               </div>
               <div style={{ marginTop: "1rem" }}>
                 <Link
                   to={`/courses/${featuredCourse.id}`}
                   style={{
                     display: "inline-block",
-                    padding: "0.5rem 1rem",
+                    padding: "0.75rem 1.5rem",
                     backgroundColor: "#285D66",
                     color: "white",
                     borderRadius: "0.375rem",
-                    fontSize: "0.875rem",
+                    fontSize: "1rem",
                     fontWeight: "500",
                     textDecoration: "none",
                     transition: "background-color 0.2s ease-in-out",
@@ -236,23 +222,30 @@ const Courses = () => {
 
       <div style={{ marginBottom: "2rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#285D66" }}>All Courses</h2>
-          <div style={{ position: "relative" }}>
+          <h2 style={{ fontSize: "1.75rem", fontWeight: "600", color: "#285D66" }}>All Courses</h2>
+          <div style={{ position: "relative", width: "100%", maxWidth: "20rem" }}>
             <input
               type="text"
               placeholder="Search courses..."
               style={{
-                paddingLeft: "2.5rem",
-                paddingRight: "1rem",
-                paddingTop: "0.5rem",
-                paddingBottom: "0.5rem",
+                width: "100%",
+                padding: "0.75rem 1rem 0.75rem 2.5rem",
                 borderRadius: "0.375rem",
                 border: "1px solid #B7DBC8",
                 outline: "none",
-                width: "100%",
+                fontSize: "1rem",
               }}
             />
-            <Search style={{ position: "absolute", left: "0.75rem", top: "0.625rem", color: "#666666" }} size={20} />
+            <Search
+              style={{
+                position: "absolute",
+                left: "0.75rem",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#666666",
+              }}
+              size={20}
+            />
           </div>
         </div>
       </div>
@@ -264,9 +257,9 @@ const Courses = () => {
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
               style={{
-                padding: "0.5rem 1rem",
+                padding: "0.75rem 1.5rem",
                 borderRadius: "9999px",
-                fontSize: "0.875rem",
+                fontSize: "1rem",
                 fontWeight: "500",
                 whiteSpace: "nowrap",
                 backgroundColor: activeFilter === filter.id ? "#285D66" : "#D4DCDC",
@@ -285,10 +278,10 @@ const Courses = () => {
       <div
         style={{
           display: "grid",
-          gap: "1.5rem",
+          gap: "2rem",
           gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-          md: { gridTemplateColumns: "repeat(2, minmax(0, 1fr))" },
-          lg: { gridTemplateColumns: "repeat(3, minmax(0, 1fr))" },
+          "@media (min-width: 640px)": { gridTemplateColumns: "repeat(2, minmax(0, 1fr))" },
+          "@media (min-width: 1024px)": { gridTemplateColumns: "repeat(3, minmax(0, 1fr))" },
         }}
       >
         {filteredCourses.map((course) => (
@@ -298,6 +291,21 @@ const Courses = () => {
     </div>
   )
 }
+
+const CourseMetaItem = ({ icon, text }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      fontSize: "0.875rem",
+      color: "#666666",
+      marginRight: "1.5rem",
+    }}
+  >
+    {icon}
+    <span style={{ marginLeft: "0.25rem" }}>{text}</span>
+  </div>
+)
 
 export default Courses
 

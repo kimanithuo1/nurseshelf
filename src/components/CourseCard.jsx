@@ -7,9 +7,10 @@ const CourseCard = ({ course }) => {
       style={{
         backgroundColor: "white",
         borderRadius: "0.5rem",
-        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         border: "1px solid #B7DBC8",
         transition: "box-shadow 0.3s ease-in-out",
+        overflow: "hidden",
       }}
     >
       <div style={{ position: "relative" }}>
@@ -20,20 +21,18 @@ const CourseCard = ({ course }) => {
             width: "100%",
             height: "12rem",
             objectFit: "cover",
-            borderTopLeftRadius: "0.5rem",
-            borderTopRightRadius: "0.5rem",
           }}
         />
         <div
           style={{
             position: "absolute",
-            top: "0.5rem",
-            right: "0.5rem",
-            backgroundColor: "white",
+            top: "0.75rem",
+            right: "0.75rem",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
             padding: "0.25rem 0.5rem",
             borderRadius: "9999px",
             fontSize: "0.75rem",
-            fontWeight: "500",
+            fontWeight: "600",
             color: "#285D66",
           }}
         >
@@ -41,8 +40,8 @@ const CourseCard = ({ course }) => {
         </div>
       </div>
 
-      <div style={{ padding: "1rem" }}>
-        <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "0.5rem", color: "#285D66" }}>
+      <div style={{ padding: "1.5rem" }}>
+        <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "0.75rem", color: "#285D66" }}>
           {course.title}
         </h3>
         <p
@@ -68,18 +67,9 @@ const CourseCard = ({ course }) => {
             marginBottom: "1rem",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", marginRight: "1rem" }}>
-            <Clock size={14} style={{ marginRight: "0.25rem" }} />
-            <span>{course.duration}</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", marginRight: "1rem" }}>
-            <Users size={14} style={{ marginRight: "0.25rem" }} />
-            <span>{course.students} students</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Star size={14} style={{ marginRight: "0.25rem", color: "#E1DF66" }} />
-            <span>{course.rating}</span>
-          </div>
+          <CourseMetaItem icon={<Clock size={14} />} text={course.duration} />
+          <CourseMetaItem icon={<Users size={14} />} text={`${course.students} students`} />
+          <CourseMetaItem icon={<Star size={14} style={{ color: "#E1DF66" }} />} text={course.rating.toString()} />
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -87,9 +77,9 @@ const CourseCard = ({ course }) => {
             <img
               src={course.instructor.avatar || "/placeholder.svg?height=50&width=50"}
               alt={course.instructor.name}
-              style={{ width: "2rem", height: "2rem", borderRadius: "9999px", marginRight: "0.5rem" }}
+              style={{ width: "2.5rem", height: "2.5rem", borderRadius: "9999px", marginRight: "0.75rem" }}
             />
-            <span style={{ fontSize: "0.875rem", fontWeight: "500" }}>{course.instructor.name}</span>
+            <span style={{ fontSize: "0.875rem", fontWeight: "500", color: "#333333" }}>{course.instructor.name}</span>
           </div>
           <Link
             to={`/courses/${course.id}`}
@@ -111,6 +101,19 @@ const CourseCard = ({ course }) => {
     </div>
   )
 }
+
+const CourseMetaItem = ({ icon, text }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      marginRight: "1rem",
+    }}
+  >
+    {icon}
+    <span style={{ marginLeft: "0.25rem" }}>{text}</span>
+  </div>
+)
 
 export default CourseCard
 
