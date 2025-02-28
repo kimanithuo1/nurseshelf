@@ -9,10 +9,13 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import AdminNotes from "./pages/AdminNotes"
 import UserNotes from "./pages/UserNotes"
-//import Schedule from "./pages/Schedule"
+import Schedule from "./pages/Schedule"
 import Certifications from "./pages/Certifications"
 import Settings from "./pages/Settings"
 import Help from "./pages/Help"
+import Forum from "./pages/Forum"
+import Resources from "./pages/Resources"
+import AdminDashboard from "./pages/AdminDashboard"
 import { AuthProvider, useAuth } from "./context/AuthContext"
 
 // Protected route component
@@ -62,10 +65,20 @@ function AppRoutes() {
         <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route path="profile" element={<Profile />} />
         <Route path="notes" element={<UserNotes />} />
-        {/*<Route path="schedule" element={<Schedule />} />*/}
+        <Route path="schedule" element={<Schedule />} />
         <Route path="certifications" element={<Certifications />} />
         <Route path="settings" element={<Settings />} />
         <Route path="help" element={<Help />} />
+        <Route path="forum" element={<Forum />} />
+        <Route path="resources" element={<Resources />} />
+        <Route
+          path="admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
         <Route
           path="admin/notes"
           element={

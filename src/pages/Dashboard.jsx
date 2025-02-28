@@ -8,6 +8,8 @@ const Dashboard = () => {
   const { user } = useAuth()
 
   // Mock data
+
+  
   const upcomingClasses = [
     { id: 1, title: "Advanced Cardiac Life Support", time: "10:00 AM - 12:00 PM", date: "Today" },
     { id: 2, title: "Pharmacology Basics", time: "2:00 PM - 4:00 PM", date: "Tomorrow" },

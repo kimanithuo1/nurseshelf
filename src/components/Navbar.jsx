@@ -16,7 +16,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-white border-b border-light shadow-sm">
+    <nav className="bg-red border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -30,22 +30,18 @@ const Navbar = () => {
           {/* Search bar - hidden on mobile */}
           <div className="hidden md:flex items-center flex-1 px-8">
             <div className="w-full max-w-lg relative">
-              <input
-                type="text"
-                placeholder="Search courses, topics, or modules..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg border border-light focus:outline-none focus:ring-2 focus:ring-mint"
-              />
+              <input type="text" placeholder="Search courses, topics, or modules..." className="input-search" />
               <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
             </div>
           </div>
 
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 rounded-full hover:bg-light/50 relative">
+            <button className="p-2 rounded-full hover:bg-gray-100 relative">
               <Bell size={20} className="text-gray-600" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-salmon rounded-full"></span>
             </button>
-            <button className="p-2 rounded-full hover:bg-light/50 relative">
+            <button className="p-2 rounded-full hover:bg-gray-100 relative">
               <MessageSquare size={20} className="text-gray-600" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-salmon rounded-full"></span>
             </button>
@@ -58,14 +54,14 @@ const Navbar = () => {
               </button>
 
               {isProfileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-light">
-                  <div className="px-4 py-2 border-b border-light">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
+                  <div className="px-4 py-2 border-b border-gray-200">
                     <p className="text-sm font-medium">{user?.name}</p>
                     <p className="text-xs text-gray-500">{user?.email}</p>
                   </div>
                   <Link
                     to="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-light/50"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={() => setIsProfileMenuOpen(false)}
                   >
                     Your Profile
@@ -73,7 +69,7 @@ const Navbar = () => {
                   {user?.role === "admin" && (
                     <Link
                       to="/admin/notes"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-light/50"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
                       Manage Notes
@@ -81,7 +77,7 @@ const Navbar = () => {
                   )}
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-light/50"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     <div className="flex items-center">
                       <LogOut size={16} className="mr-2" />
@@ -97,7 +93,7 @@ const Navbar = () => {
           <div className="flex md:hidden items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:bg-light/50"
+              className="p-2 rounded-md text-gray-600 hover:bg-gray-100"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -107,42 +103,38 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-b border-light">
+        <div className="md:hidden bg-white border-b border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <div className="px-3 py-2">
               <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-light focus:outline-none focus:ring-2 focus:ring-mint"
-                />
+                <input type="text" placeholder="Search..." className="input-search" />
                 <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
               </div>
             </div>
             <Link
               to="/"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-light/50"
+              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
               onClick={() => setIsMenuOpen(false)}
             >
               Dashboard
             </Link>
             <Link
               to="/courses"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-light/50"
+              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
               onClick={() => setIsMenuOpen(false)}
             >
               Courses
             </Link>
             <Link
               to="/notes"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-light/50"
+              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
               onClick={() => setIsMenuOpen(false)}
             >
               Notes
             </Link>
             <Link
               to="/profile"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-light/50"
+              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
               onClick={() => setIsMenuOpen(false)}
             >
               Profile
@@ -150,7 +142,7 @@ const Navbar = () => {
             {user?.role === "admin" && (
               <Link
                 to="/admin/notes"
-                className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-light/50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Manage Notes
@@ -158,7 +150,7 @@ const Navbar = () => {
             )}
             <button
               onClick={handleLogout}
-              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-light/50"
+              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
             >
               <div className="flex items-center">
                 <LogOut size={16} className="mr-2" />

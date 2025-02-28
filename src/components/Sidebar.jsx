@@ -57,11 +57,7 @@ const Sidebar = () => {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`flex items-center px-3 py-2 rounded-md transition-colors ${
-                    location.pathname === item.path
-                      ? "bg-mint/20 text-teal"
-                      : "text-gray-600 hover:bg-light/50 hover:text-teal"
-                  }`}
+                  className={`sidebar-link ${location.pathname === item.path ? "sidebar-link-active" : ""}`}
                 >
                   <span className="mr-3">{item.icon}</span>
                   {!collapsed && <span>{item.label}</span>}
@@ -74,11 +70,7 @@ const Sidebar = () => {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`flex items-center px-3 py-2 rounded-md transition-colors ${
-                    location.pathname === item.path
-                      ? "bg-mint/20 text-teal"
-                      : "text-gray-600 hover:bg-light/50 hover:text-teal"
-                  }`}
+                  className={`sidebar-link ${location.pathname === item.path ? "sidebar-link-active" : ""}`}
                 >
                   <span className="mr-3">{item.icon}</span>
                   {!collapsed && <span>{item.label}</span>}
@@ -94,11 +86,7 @@ const Sidebar = () => {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`flex items-center px-3 py-2 rounded-md transition-colors ${
-                    location.pathname === item.path
-                      ? "bg-mint/20 text-teal"
-                      : "text-gray-600 hover:bg-light/50 hover:text-teal"
-                  }`}
+                  className={`sidebar-link ${location.pathname === item.path ? "sidebar-link-active" : ""}`}
                 >
                   <span className="mr-3">{item.icon}</span>
                   {!collapsed && <span>{item.label}</span>}
