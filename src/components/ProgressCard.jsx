@@ -1,3 +1,5 @@
+import React from 'react'
+
 const ProgressCard = ({ title, progress, color }) => {
     return (
       <div className="card">
