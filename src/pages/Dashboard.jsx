@@ -8,8 +8,6 @@ const Dashboard = () => {
   const { user } = useAuth()
 
   // Mock data
-
-  
   const upcomingClasses = [
     { id: 1, title: "Advanced Cardiac Life Support", time: "10:00 AM - 12:00 PM", date: "Today" },
     { id: 2, title: "Pharmacology Basics", time: "2:00 PM - 4:00 PM", date: "Tomorrow" },
@@ -42,110 +40,60 @@ const Dashboard = () => {
   ]
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold mb-6">Welcome back, {user.name}!</h1>
+    <div style={{ padding: "2rem", backgroundColor: "#F5F7F7" }}>
+      <h1 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem", color: "#285D66" }}>
+        Welcome back, {user.name}!
+      </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="card bg-gradient-to-br from-teal to-teal/90 text-white">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-white/80 mb-1">Enrolled Courses</p>
-                <h3 className="text-2xl font-bold">12</h3>
-              </div>
-              <div className="p-2 bg-white/20 rounded-lg">
-                <BookOpen size={24} />
-              </div>
-            </div>
-          </div>
-
-          <div className="card bg-gradient-to-br from-mint to-mint/90 text-teal">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-teal/80 mb-1">Completed Courses</p>
-                <h3 className="text-2xl font-bold">8</h3>
-              </div>
-              <div className="p-2 bg-teal/20 rounded-lg">
-                <Award size={24} />
-              </div>
-            </div>
-          </div>
-
-          <div className="card bg-gradient-to-br from-salmon to-salmon/90 text-white">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-white/80 mb-1">Hours Spent</p>
-                <h3 className="text-2xl font-bold">126</h3>
-              </div>
-              <div className="p-2 bg-white/20 rounded-lg">
-                <Clock size={24} />
-              </div>
-            </div>
-          </div>
-
-          <div className="card bg-gradient-to-br from-light to-light/90 text-teal">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-teal/80 mb-1">Total Notes</p>
-                <h3 className="text-2xl font-bold">24</h3>
-              </div>
-              <div className="p-2 bg-teal/20 rounded-lg">
-                <FileText size={24} />
-              </div>
-            </div>
-          </div>
-        </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "1.5rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <StatCard title="Enrolled Courses" value="12" icon={<BookOpen />} color="#285D66" />
+        <StatCard title="Completed Courses" value="8" icon={<Award />} color="#B7DBC8" />
+        <StatCard title="Hours Spent" value="126" icon={<Clock />} color="#E1DF66" />
+        <StatCard title="Total Notes" value="24" icon={<FileText />} color="#6DA095" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Continue Learning</h2>
-            <Link to="/courses" className="text-sm font-medium text-teal hover:text-teal/80">
-              View all courses
-            </Link>
-          </div>
-          <div className="space-y-4">
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "2rem" }}>
+        <div>
+          <SectionHeader title="Continue Learning" linkText="View all courses" linkUrl="/courses" />
+          <div style={{ display: "grid", gap: "1rem" }}>
             {recentCourses.map((course, index) => (
               <ProgressCard
                 key={course.id}
                 title={course.title}
                 progress={course.progress}
-                color={index % 3 === 0 ? "bg-teal" : index % 3 === 1 ? "bg-mint" : "bg-salmon"}
+                color={index % 3 === 0 ? "#285D66" : index % 3 === 1 ? "#B7DBC8" : "#E1DF66"}
               />
             ))}
           </div>
         </div>
 
         <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Upcoming Classes</h2>
-            <Link to="/schedule" className="text-sm font-medium text-teal hover:text-teal/80">
-              View full schedule
-            </Link>
-          </div>
-          <div className="card divide-y divide-light">
-            {upcomingClasses.map((cls) => (
-              <div key={cls.id} className="py-3 first:pt-0 last:pb-0">
-                <div className="flex justify-between items-start mb-1">
-                  <h4 className="font-medium">{cls.title}</h4>
-                  <span className="text-xs bg-light px-2 py-1 rounded-full">{cls.date}</span>
-                </div>
-                <p className="text-sm text-gray-600">{cls.time}</p>
-              </div>
+          <SectionHeader title="Upcoming Classes" linkText="View full schedule" linkUrl="/schedule" />
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "0.5rem",
+              padding: "1.5rem",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+            }}
+          >
+            {upcomingClasses.map((cls, index) => (
+              <UpcomingClass key={cls.id} cls={cls} isLast={index === upcomingClasses.length - 1} />
             ))}
           </div>
         </div>
       </div>
 
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Recent Notes</h2>
-          <Link to="/notes" className="text-sm font-medium text-teal hover:text-teal/80">
-            View all notes
-          </Link>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div style={{ marginTop: "2rem" }}>
+        <SectionHeader title="Recent Notes" linkText="View all notes" linkUrl="/notes" />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
           {recentNotes.map((note) => (
             <NoteCard key={note.id} note={note} />
           ))}
@@ -154,6 +102,64 @@ const Dashboard = () => {
     </div>
   )
 }
+
+const StatCard = ({ title, value, icon, color }) => (
+  <div
+    style={{
+      backgroundColor: "white",
+      borderRadius: "0.5rem",
+      padding: "1.5rem",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+      border: `1px solid ${color}`,
+    }}
+  >
+    <div>
+      <p style={{ color: "#666", fontSize: "0.875rem", marginBottom: "0.5rem" }}>{title}</p>
+      <h3 style={{ fontSize: "1.5rem", fontWeight: "bold", color }}>{value}</h3>
+    </div>
+    <div style={{ backgroundColor: `${color}20`, padding: "0.75rem", borderRadius: "0.5rem" }}>{icon}</div>
+  </div>
+)
+
+const SectionHeader = ({ title, linkText, linkUrl }) => (
+  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+    <h2 style={{ fontSize: "1.25rem", fontWeight: "600", color: "#285D66" }}>{title}</h2>
+    <Link to={linkUrl} style={{ fontSize: "0.875rem", fontWeight: "500", color: "#285D66", textDecoration: "none" }}>
+      {linkText}
+    </Link>
+  </div>
+)
+
+const UpcomingClass = ({ cls, isLast }) => (
+  <div
+    style={{
+      paddingBottom: isLast ? "0" : "0.75rem",
+      marginBottom: isLast ? "0" : "0.75rem",
+      borderBottom: isLast ? "none" : "1px solid #B7DBC8",
+    }}
+  >
+    <div
+      style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.25rem" }}
+    >
+      <h4 style={{ fontWeight: "500", color: "#285D66" }}>{cls.title}</h4>
+      <span
+        style={{
+          fontSize: "0.75rem",
+          backgroundColor: "#B7DBC8",
+          padding: "0.25rem 0.5rem",
+          borderRadius: "9999px",
+          color: "#285D66",
+        }}
+      >
+        {cls.date}
+      </span>
+    </div>
+    <p style={{ fontSize: "0.875rem", color: "#666666" }}>{cls.time}</p>
+  </div>
+)
 
 export default Dashboard
 

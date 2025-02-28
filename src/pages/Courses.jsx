@@ -125,48 +125,106 @@ const Courses = () => {
     activeFilter === "all" ? courses : courses.filter((course) => course.category === activeFilter)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-teal mb-8">Explore Our Courses</h1>
+    <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "2rem 1rem" }}>
+      <h1 style={{ fontSize: "1.875rem", fontWeight: "bold", color: "#285D66", marginBottom: "2rem" }}>
+        Explore Our Courses
+      </h1>
 
       {/* Featured Course */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Featured Course</h2>
-        <div className="card overflow-hidden">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0">
+      <div style={{ marginBottom: "3rem" }}>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "1rem", color: "#285D66" }}>
+          Featured Course
+        </h2>
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "0.5rem",
+            overflow: "hidden",
+            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+            border: "1px solid #B7DBC8",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", md: { flexDirection: "row" } }}>
+            <div style={{ flexShrink: 0, height: "12rem", width: "100%", md: { width: "12rem", height: "auto" } }}>
               <img
                 className="h-48 w-full object-cover md:w-48"
                 src={featuredCourse.image || "/placeholder.svg"}
                 alt={featuredCourse.title}
+                style={{ height: "100%", width: "100%", objectFit: "cover" }}
               />
             </div>
-            <div className="p-8">
-              <div className="uppercase tracking-wide text-sm text-teal font-semibold">{featuredCourse.category}</div>
+            <div style={{ padding: "2rem" }}>
+              <div
+                style={{
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  fontSize: "0.875rem",
+                  fontWeight: "600",
+                  color: "#285D66",
+                  marginBottom: "0.25rem",
+                }}
+              >
+                {featuredCourse.category}
+              </div>
               <Link
                 to={`/courses/${featuredCourse.id}`}
-                className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
+                style={{
+                  display: "block",
+                  marginTop: "0.25rem",
+                  fontSize: "1.25rem",
+                  lineHeight: "1.25",
+                  fontWeight: "500",
+                  color: "#333333",
+                  textDecoration: "none",
+                }}
               >
                 {featuredCourse.title}
               </Link>
-              <p className="mt-2 text-gray-500">{featuredCourse.description}</p>
-              <div className="mt-4 flex items-center">
-                <div className="flex items-center text-sm text-gray-500">
-                  <Clock size={16} className="mr-1" />
+              <p style={{ marginTop: "0.5rem", color: "#666666" }}>{featuredCourse.description}</p>
+              <div style={{ marginTop: "1rem", display: "flex", alignItems: "center" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "0.875rem",
+                    color: "#666666",
+                    marginRight: "1.5rem",
+                  }}
+                >
+                  <Clock size={16} style={{ marginRight: "0.25rem" }} />
                   <span>{featuredCourse.duration}</span>
                 </div>
-                <div className="ml-6 flex items-center text-sm text-gray-500">
-                  <Users size={16} className="mr-1" />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "0.875rem",
+                    color: "#666666",
+                    marginRight: "1.5rem",
+                  }}
+                >
+                  <Users size={16} style={{ marginRight: "0.25rem" }} />
                   <span>{featuredCourse.students} students</span>
                 </div>
-                <div className="ml-6 flex items-center text-sm text-gray-500">
-                  <Star size={16} className="mr-1 text-yellow-400" />
+                <div style={{ display: "flex", alignItems: "center", fontSize: "0.875rem", color: "#666666" }}>
+                  <Star size={16} style={{ marginRight: "0.25rem", color: "#E1DF66" }} />
                   <span>{featuredCourse.rating}</span>
                 </div>
               </div>
-              <div className="mt-4">
+              <div style={{ marginTop: "1rem" }}>
                 <Link
                   to={`/courses/${featuredCourse.id}`}
-                  className="inline-block px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-teal hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-700 transition ease-in-out duration-150"
+                  style={{
+                    display: "inline-block",
+                    padding: "0.5rem 1rem",
+                    backgroundColor: "#285D66",
+                    color: "white",
+                    borderRadius: "0.375rem",
+                    fontSize: "0.875rem",
+                    fontWeight: "500",
+                    textDecoration: "none",
+                    transition: "background-color 0.2s ease-in-out",
+                  }}
                 >
                   Learn More
                 </Link>
@@ -176,29 +234,47 @@ const Courses = () => {
         </div>
       </div>
 
-      <div className="mb-8">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold">All Courses</h2>
-          <div className="relative">
+      <div style={{ marginBottom: "2rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h2 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#285D66" }}>All Courses</h2>
+          <div style={{ position: "relative" }}>
             <input
               type="text"
               placeholder="Search courses..."
-              className="pl-10 pr-4 py-2 border border-light rounded-md focus:outline-none focus:ring-2 focus:ring-mint"
+              style={{
+                paddingLeft: "2.5rem",
+                paddingRight: "1rem",
+                paddingTop: "0.5rem",
+                paddingBottom: "0.5rem",
+                borderRadius: "0.375rem",
+                border: "1px solid #B7DBC8",
+                outline: "none",
+                width: "100%",
+              }}
             />
-            <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
+            <Search style={{ position: "absolute", left: "0.75rem", top: "0.625rem", color: "#666666" }} size={20} />
           </div>
         </div>
       </div>
 
-      <div className="mb-8 overflow-x-auto">
-        <div className="flex space-x-2 pb-2">
+      <div style={{ marginBottom: "2rem", overflowX: "auto" }}>
+        <div style={{ display: "flex", gap: "0.5rem", paddingBottom: "0.5rem" }}>
           {filters.map((filter) => (
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
-                activeFilter === filter.id ? "bg-teal text-white" : "bg-light text-gray-700 hover:bg-mint/30"
-              }`}
+              style={{
+                padding: "0.5rem 1rem",
+                borderRadius: "9999px",
+                fontSize: "0.875rem",
+                fontWeight: "500",
+                whiteSpace: "nowrap",
+                backgroundColor: activeFilter === filter.id ? "#285D66" : "#D4DCDC",
+                color: activeFilter === filter.id ? "white" : "#333333",
+                border: "none",
+                cursor: "pointer",
+                transition: "background-color 0.2s ease-in-out",
+              }}
             >
               {filter.label}
             </button>
@@ -206,7 +282,15 @@ const Courses = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        style={{
+          display: "grid",
+          gap: "1.5rem",
+          gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
+          md: { gridTemplateColumns: "repeat(2, minmax(0, 1fr))" },
+          lg: { gridTemplateColumns: "repeat(3, minmax(0, 1fr))" },
+        }}
+      >
         {filteredCourses.map((course) => (
           <CourseCard key={course.id} course={course} />
         ))}

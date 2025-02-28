@@ -16,84 +16,79 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-red border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-teal">
-                Nurse<span className="text-salmon">Shelf</span>
+    <nav
+      style={{
+        backgroundColor: "#FFFFFF",
+        borderBottom: "1px solid #B7DBC8",
+        boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      }}
+    >
+      <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: "4rem" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Link to="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+              <span style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#285D66" }}>
+                Nurse<span style={{ color: "#E1DF66" }}>Shelf</span>
               </span>
             </Link>
           </div>
 
           {/* Search bar - hidden on mobile */}
-          <div className="hidden md:flex items-center flex-1 px-8">
-            <div className="w-full max-w-lg relative">
-              <input type="text" placeholder="Search courses, topics, or modules..." className="input-search" />
-              <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+          <div style={{ display: "none", alignItems: "center", flex: "1", padding: "0 2rem" }} className="md:flex">
+            <div style={{ width: "100%", maxWidth: "32rem", position: "relative" }}>
+              <input
+                type="text"
+                placeholder="Search courses, topics, or modules..."
+                style={{
+                  width: "100%",
+                  padding: "0.5rem 1rem 0.5rem 2.5rem",
+                  borderRadius: "0.375rem",
+                  border: "1px solid #B7DBC8",
+                  outline: "none",
+                }}
+              />
+              <Search style={{ position: "absolute", left: "0.75rem", top: "0.625rem", color: "#666666" }} size={18} />
             </div>
           </div>
 
           {/* Desktop navigation */}
-          <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 rounded-full hover:bg-gray-100 relative">
-              <Bell size={20} className="text-gray-600" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-salmon rounded-full"></span>
-            </button>
-            <button className="p-2 rounded-full hover:bg-gray-100 relative">
-              <MessageSquare size={20} className="text-gray-600" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-salmon rounded-full"></span>
-            </button>
-            <div className="relative">
+          <div style={{ display: "none", alignItems: "center" }} className="md:flex">
+            <NavButton icon={<Bell size={20} />} />
+            <NavButton icon={<MessageSquare size={20} />} />
+            <div style={{ position: "relative" }}>
               <button
                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                className="p-1 rounded-full border-2 border-mint flex items-center"
+                style={{
+                  padding: "0.25rem",
+                  borderRadius: "9999px",
+                  border: "2px solid #B7DBC8",
+                  display: "flex",
+                  alignItems: "center",
+                  background: "none",
+                  cursor: "pointer",
+                }}
               >
-                <User size={20} className="text-teal" />
+                <User size={20} style={{ color: "#285D66" }} />
               </button>
 
               {isProfileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
-                  <div className="px-4 py-2 border-b border-gray-200">
-                    <p className="text-sm font-medium">{user?.name}</p>
-                    <p className="text-xs text-gray-500">{user?.email}</p>
-                  </div>
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => setIsProfileMenuOpen(false)}
-                  >
-                    Your Profile
-                  </Link>
-                  {user?.role === "admin" && (
-                    <Link
-                      to="/admin/notes"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                    >
-                      Manage Notes
-                    </Link>
-                  )}
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <div className="flex items-center">
-                      <LogOut size={16} className="mr-2" />
-                      Sign out
-                    </div>
-                  </button>
-                </div>
+                <ProfileMenu user={user} handleLogout={handleLogout} setIsProfileMenuOpen={setIsProfileMenuOpen} />
               )}
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex md:hidden items-center">
+          <div style={{ display: "flex", alignItems: "center" }} className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100"
+              style={{
+                padding: "0.5rem",
+                borderRadius: "0.375rem",
+                color: "#285D66",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+              }}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -102,67 +97,180 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <div className="px-3 py-2">
-              <div className="relative">
-                <input type="text" placeholder="Search..." className="input-search" />
-                <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-              </div>
-            </div>
-            <Link
-              to="/"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Dashboard
-            </Link>
-            <Link
-              to="/courses"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Courses
-            </Link>
-            <Link
-              to="/notes"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Notes
-            </Link>
-            <Link
-              to="/profile"
-              className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Profile
-            </Link>
-            {user?.role === "admin" && (
-              <Link
-                to="/admin/notes"
-                className="block px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Manage Notes
-              </Link>
-            )}
-            <button
-              onClick={handleLogout}
-              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-teal hover:bg-gray-100"
-            >
-              <div className="flex items-center">
-                <LogOut size={16} className="mr-2" />
-                Sign out
-              </div>
-            </button>
-          </div>
-        </div>
-      )}
+      {isMenuOpen && <MobileMenu setIsMenuOpen={setIsMenuOpen} user={user} handleLogout={handleLogout} />}
     </nav>
   )
 }
+
+const NavButton = ({ icon }) => (
+  <button
+    style={{
+      padding: "0.5rem",
+      borderRadius: "9999px",
+      marginRight: "1rem",
+      position: "relative",
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+    }}
+  >
+    {icon}
+    <span
+      style={{
+        position: "absolute",
+        top: "0.25rem",
+        right: "0.25rem",
+        width: "0.5rem",
+        height: "0.5rem",
+        backgroundColor: "#E1DF66",
+        borderRadius: "9999px",
+      }}
+    ></span>
+  </button>
+)
+
+const ProfileMenu = ({ user, handleLogout, setIsProfileMenuOpen }) => (
+  <div
+    style={{
+      position: "absolute",
+      right: "0",
+      marginTop: "0.5rem",
+      width: "12rem",
+      backgroundColor: "#FFFFFF",
+      borderRadius: "0.375rem",
+      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      padding: "0.25rem 0",
+      zIndex: "10",
+      border: "1px solid #B7DBC8",
+    }}
+  >
+    <div style={{ padding: "1rem", borderBottom: "1px solid #B7DBC8" }}>
+      <p style={{ fontSize: "0.875rem", fontWeight: "500", color: "#285D66" }}>{user?.name}</p>
+      <p style={{ fontSize: "0.75rem", color: "#666666" }}>{user?.email}</p>
+    </div>
+    <ProfileMenuItem to="/profile" onClick={() => setIsProfileMenuOpen(false)}>
+      Your Profile
+    </ProfileMenuItem>
+    {user?.role === "admin" && (
+      <ProfileMenuItem to="/admin/notes" onClick={() => setIsProfileMenuOpen(false)}>
+        Manage Notes
+      </ProfileMenuItem>
+    )}
+    <button
+      onClick={handleLogout}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        textAlign: "left",
+        padding: "0.5rem 1rem",
+        fontSize: "0.875rem",
+        color: "#333333",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+      }}
+    >
+      <LogOut size={16} style={{ marginRight: "0.5rem" }} />
+      Sign out
+    </button>
+  </div>
+)
+
+const ProfileMenuItem = ({ to, children, onClick }) => (
+  <Link
+    to={to}
+    style={{
+      display: "block",
+      padding: "0.5rem 1rem",
+      fontSize: "0.875rem",
+      color: "#333333",
+      textDecoration: "none",
+    }}
+    onClick={onClick}
+  >
+    {children}
+  </Link>
+)
+
+const MobileMenu = ({ setIsMenuOpen, user, handleLogout }) => (
+  <div style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #B7DBC8" }} className="md:hidden">
+    <div style={{ padding: "0.5rem" }}>
+      <div style={{ padding: "0.75rem" }}>
+        <div style={{ position: "relative" }}>
+          <input
+            type="text"
+            placeholder="Search..."
+            style={{
+              width: "100%",
+              padding: "0.5rem 1rem 0.5rem 2.5rem",
+              borderRadius: "0.375rem",
+              border: "1px solid #B7DBC8",
+              outline: "none",
+            }}
+          />
+          <Search style={{ position: "absolute", left: "0.75rem", top: "0.625rem", color: "#666666" }} size={18} />
+        </div>
+      </div>
+      <MobileMenuItem to="/" onClick={() => setIsMenuOpen(false)}>
+        Dashboard
+      </MobileMenuItem>
+      <MobileMenuItem to="/courses" onClick={() => setIsMenuOpen(false)}>
+        Courses
+      </MobileMenuItem>
+      <MobileMenuItem to="/notes" onClick={() => setIsMenuOpen(false)}>
+        Notes
+      </MobileMenuItem>
+      <MobileMenuItem to="/profile" onClick={() => setIsMenuOpen(false)}>
+        Profile
+      </MobileMenuItem>
+      {user?.role === "admin" && (
+        <MobileMenuItem to="/admin/notes" onClick={() => setIsMenuOpen(false)}>
+          Manage Notes
+        </MobileMenuItem>
+      )}
+      <button
+        onClick={handleLogout}
+        style={{
+          display: "block",
+          width: "100%",
+          textAlign: "left",
+          padding: "0.75rem",
+          borderRadius: "0.375rem",
+          fontSize: "1rem",
+          fontWeight: "500",
+          color: "#285D66",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <LogOut size={16} style={{ marginRight: "0.5rem" }} />
+          Sign out
+        </div>
+      </button>
+    </div>
+  </div>
+)
+
+const MobileMenuItem = ({ to, children, onClick }) => (
+  <Link
+    to={to}
+    style={{
+      display: "block",
+      padding: "0.75rem",
+      borderRadius: "0.375rem",
+      fontSize: "1rem",
+      fontWeight: "500",
+      color: "#285D66",
+      textDecoration: "none",
+    }}
+    onClick={onClick}
+  >
+    {children}
+  </Link>
+)
 
 export default Navbar
 

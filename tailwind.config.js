@@ -5,23 +5,36 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: {
+          DEFAULT: "#285D66", // Teal
+          light: "#3A8491",
+          dark: "#1C4047",
+        },
+        secondary: {
+          DEFAULT: "#B7DBC8", // Mint Green
+          light: "#D0E9DB",
+          dark: "#9ECDB5",
+        },
+        tertiary: {
+          DEFAULT: "#E1DF66", // Yellow
+          light: "#E8E68A",
+          dark: "#D9D742",
+        },
+        accent: {
+          DEFAULT: "#6DA095", // Sea Green
+          light: "#8FB3AA",
+          dark: "#5B8D80",
+        },
+        background: "#F5F7F7",
+        surface: "#FFFFFF",
+        text: {
+          primary: "#333333",
+          secondary: "#666666",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "rgb(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "rgb(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        accent: {
-          DEFAULT: "rgb(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
@@ -38,9 +51,10 @@ module.exports = {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
         },
-        teal: "#26676E",
-        mint: "#95C0BD",
-        salmon: "#E6B4AA",
+        mint: "#B7DBC8",
+        teal: "#285D66",
+        yellow: "#E1DF66",
+        seagreen: "#6DA095",
         light: "#D4DCDC",
       },
       borderRadius: {
